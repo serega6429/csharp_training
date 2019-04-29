@@ -42,7 +42,7 @@ namespace WebAddressbookTests
         [Test]
         public void GroupCreationTest()
         {
-            OpenHomePage();
+            OpenLoginPage();
             Login(new AccountData("admin", "secret"));
             GoToGroupPage();
             InitGroupCreation();
@@ -53,6 +53,43 @@ namespace WebAddressbookTests
             SubmitGroupCreation();
             ReturnToGroupPage();
             Logout();
+        }
+
+        [Test]
+        public void ContactCreationTest()
+        {
+            OpenLoginPage();
+            Login(new AccountData("admin", "secret"));
+            GoToNewContact();
+            FillContactForm(new ContactData("Sergey", "Yusupov"));
+            SubmitContactCreation();
+            GoToHomePage();
+            Logout();
+        }
+
+        private void SubmitContactCreation()
+        {
+            driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
+        }
+
+        private void GoToHomePage()
+        {
+            driver.FindElement(By.LinkText("home page")).Click();
+        }
+
+        private void FillContactForm(ContactData contact)
+        {
+            driver.FindElement(By.Name("firstname")).Click();
+            driver.FindElement(By.Name("firstname")).Clear();
+            driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
+            driver.FindElement(By.Name("lastname")).Click();
+            driver.FindElement(By.Name("lastname")).Clear();
+            driver.FindElement(By.Name("lastname")).SendKeys(contact.Lastname);
+        }
+
+        private void GoToNewContact()
+        {
+            driver.FindElement(By.LinkText("add new")).Click();
         }
 
         private void Logout()
@@ -102,7 +139,7 @@ namespace WebAddressbookTests
             driver.FindElement(By.XPath("//input[@value='Login']")).Click();
         }
 
-        private void OpenHomePage()
+        private void OpenLoginPage()
         { 
             driver.Navigate().GoToUrl(baseURL);
         }
