@@ -22,8 +22,6 @@ namespace WebAddressbookTests
             SubmitContactCreation();
             GoToHomePage();
             Logout();
-        }
-
-        
+        }   
     }
 }
