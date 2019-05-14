@@ -10,7 +10,6 @@ namespace WebAddressbookTests
         protected IWebDriver driver;
         protected StringBuilder verificationErrors;
         protected string baseURL;
-        protected bool acceptNextAlert = true;
         protected LoginHelper loginHelper;
         protected NavigationHelper navigationHelper;
         protected GroupHelper groupHelper;
@@ -22,15 +21,21 @@ namespace WebAddressbookTests
             driver = new FirefoxDriver();
             baseURL = "http://localhost/addressbook";
             verificationErrors = new StringBuilder();
-            loginHelper = new LoginHelper(driver, baseURL);
-            navigationHelper = new NavigationHelper(driver, baseURL);
-            groupHelper = new GroupHelper(driver);
-            contactHelper = new ContactHelper(driver);
+            loginHelper = new LoginHelper(this);
+            navigationHelper = new NavigationHelper(this);
+            groupHelper = new GroupHelper(this);
+            contactHelper = new ContactHelper(this);
+        }
+
+        public void Start()
+        {
+            Auth.Login(accountAdmin);
         }
         public void Stop()
         {
             try
             {
+                Auth.Logout();
                 driver.Quit();
             }
             catch (Exception)
@@ -72,6 +77,29 @@ namespace WebAddressbookTests
             get
             {
                 return accountAdmin;
+            }
+        }
+
+        public IWebDriver Driver
+        {
+            get
+            {
+                return driver;
+            }
+            set
+            {
+
+            }
+        }
+
+        public string BASEURL
+        {
+            get
+            {
+                return baseURL;
+            }
+            set
+            {
             }
         }
     }

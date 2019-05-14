@@ -10,7 +10,7 @@ namespace WebAddressbookTests
         public void SetupTest()
         {
             app = new ApplicationManager();
-            
+            app.Start();
         }
 
         [TearDown]

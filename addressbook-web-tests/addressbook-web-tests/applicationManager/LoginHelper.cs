@@ -5,9 +5,10 @@ namespace WebAddressbookTests
 {
     public class LoginHelper : HelperBase
     {
-        public LoginHelper(IWebDriver driver, string baseURL) : base(driver)
+        public LoginHelper(ApplicationManager manager) : base(manager)
         {
-            this.baseURL = baseURL;
+
+            baseURL = manager.BASEURL;
         }
         public void Login(AccountData account)
         {

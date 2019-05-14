@@ -4,9 +4,9 @@ namespace WebAddressbookTests
 {
     public class NavigationHelper : HelperBase
     {
-        public NavigationHelper(IWebDriver driver, string baseURL) : base(driver)
+        public NavigationHelper(ApplicationManager manager) : base(manager)
         {
-            this.baseURL = baseURL;
+            baseURL = manager.BASEURL;
         }
 
         public void GoToHomePage()
