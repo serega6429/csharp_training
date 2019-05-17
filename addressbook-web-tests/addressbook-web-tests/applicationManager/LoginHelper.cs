@@ -7,28 +7,43 @@ namespace WebAddressbookTests
     {
         public LoginHelper(ApplicationManager manager) : base(manager)
         {
-
-            baseURL = manager.BASEURL;
         }
         public void Login(AccountData account)
         {
-            OpenLoginPage();
-            driver.FindElement(By.Name("user")).Click();
-            driver.FindElement(By.Name("user")).Clear();
-            driver.FindElement(By.Name("user")).SendKeys(account.Username);
-            driver.FindElement(By.Name("pass")).Click();
-            driver.FindElement(By.Name("pass")).Clear();
-            driver.FindElement(By.Name("pass")).SendKeys(account.Password);
+            if (isLoginIn())
+            {
+                if(isLoginIn(account))
+                {
+                    return;
+                }
+                Logout();
+            }
+            Type(By.Name("user"), account.Username);
+            Type(By.Name("pass"), account.Password);
             driver.FindElement(By.XPath("//input[@value='Login']")).Click();
         }
 
         public void Logout()
         {
-            driver.FindElement(By.LinkText("Logout")).Click();
+            if (isLoginIn())
+            {
+                driver.FindElement(By.LinkText("Logout")).Click();
+            }
         }
-        private void OpenLoginPage()
+
+        private bool isLoginIn()
         {
-            driver.Navigate().GoToUrl(baseURL);
+            return IsElementPresent(By.Name("logout"));
         }
+
+        public bool isLoginIn(AccountData account)
+        {
+            return isLoginIn() 
+                && driver.FindElement(By.Name("logout")).
+                FindElement(By.TagName("b")).Text ==
+                "(" + account.Username + ")";
+        }
+
+
     }
 }

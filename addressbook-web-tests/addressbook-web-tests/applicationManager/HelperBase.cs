@@ -26,6 +26,14 @@ namespace WebAddressbookTests
                 return false;
             }
         }
+        protected void Type(By locator, string text)
+        {
+            if(text != null)
+            {
+                driver.FindElement(locator).Clear();
+                driver.FindElement(locator).SendKeys(text);
+            }
+        }
 
         protected bool IsAlertPresent()
         {

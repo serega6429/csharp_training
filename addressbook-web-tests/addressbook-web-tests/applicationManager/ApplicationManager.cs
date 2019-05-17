@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 
@@ -14,9 +15,9 @@ namespace WebAddressbookTests
         protected NavigationHelper navigationHelper;
         protected GroupHelper groupHelper;
         protected ContactHelper contactHelper;
-        protected AccountData accountAdmin = new AccountData("admin", "secret");
+        private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
-        public ApplicationManager()
+        private ApplicationManager()
         {
             driver = new FirefoxDriver();
             baseURL = "http://localhost/addressbook";
@@ -27,11 +28,7 @@ namespace WebAddressbookTests
             contactHelper = new ContactHelper(this);
         }
 
-        public void Start()
-        {
-            Auth.Login(accountAdmin);
-        }
-        public void Stop()
+        ~ApplicationManager()
         {
             try
             {
@@ -42,6 +39,16 @@ namespace WebAddressbookTests
             {
                 // Ignore errors if unable to close the browser
             }
+        }
+
+        public static ApplicationManager GetInstanse()
+        {
+            if(!app.IsValueCreated)
+            {
+                app.Value = new ApplicationManager();
+                app.Value.Navigator.OpenLoginPage();
+            }
+            return app.Value;
         }
 
         public LoginHelper Auth
@@ -72,14 +79,7 @@ namespace WebAddressbookTests
                 return contactHelper;
             }
         }
-        public AccountData Admin
-        {
-            get
-            {
-                return accountAdmin;
-            }
-        }
-
+        
         public IWebDriver Driver
         {
             get
