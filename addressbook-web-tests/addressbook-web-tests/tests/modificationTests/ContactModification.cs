@@ -6,9 +6,10 @@ namespace WebAddressbookTests
     class ContactModification : AuthTestBase
     {
         [Test]
-        public void ContactModoficationTest()
+        public void ContactModificationTest()
         {
-            app.Contacts.Modify(2, new ContactData("Ivan", "Popov"));
+            app.Contacts.Modify(1, new ContactData("Ivan", "Popov"));
+            
         }
 
     }

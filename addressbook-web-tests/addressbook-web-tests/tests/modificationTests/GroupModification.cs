@@ -10,7 +10,7 @@ namespace WebAddressbookTests
             GroupData newGroup = new GroupData("aaa");
             newGroup.Footer = "zzz";
             newGroup.Header = "qqq";
-            app.Groups.Modify(2, newGroup);
+            app.Groups.Modify(1, newGroup);
         }
     }
     

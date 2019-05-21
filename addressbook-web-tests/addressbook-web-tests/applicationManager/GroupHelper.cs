@@ -17,9 +17,20 @@ namespace WebAddressbookTests
             ReturnToGroupPage();
             return this;
         }
+
+        public GroupHelper IfNeedToCreate(GroupData newGroup)
+        {
+            if (!(IsElementPresent(By.ClassName("group"))))
+            {
+                Create(newGroup);
+            }
+            return this;
+        }
+
         public GroupHelper Modify(int v, GroupData newGroup)
         {
             manager.Navigator.GoToGroupPage();
+            IfNeedToCreate(newGroup);
             SelectGroup(v);
             InitGroupModification();
             FillGroupForm(newGroup);
@@ -31,6 +42,7 @@ namespace WebAddressbookTests
         public GroupHelper Remove(int p)
         {
             manager.Navigator.GoToGroupPage();
+            IfNeedToCreate(new GroupData("AA", "SS", "DD"));
             SelectGroup(p);
             RemoveGroup();
             ReturnToGroupPage();

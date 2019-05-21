@@ -10,6 +10,15 @@ namespace WebAddressbookTests
         {
         }
 
+        public ContactHelper IfNeedToCreate()
+        {
+            if (!(IsElementPresent(By.ClassName("center"))))
+            {
+                Create(new ContactData("Sergey", "Yusupov"));
+            }
+            return this;
+        }
+
         public ContactHelper Create(ContactData contactData)
         {
             GoToNewContact();
@@ -21,6 +30,7 @@ namespace WebAddressbookTests
 
         public ContactHelper Remove(int v)
         {
+            IfNeedToCreate();
             SelectContact(v);
             DeleteContact();
             return this;
@@ -28,6 +38,7 @@ namespace WebAddressbookTests
 
         public ContactHelper Modify(int v, ContactData contactData)
         {
+            IfNeedToCreate();
             EditContact(v);
             FillContactForm(contactData);
             UpdateContact();
@@ -74,7 +85,6 @@ namespace WebAddressbookTests
         public ContactHelper DeleteContact()
         {
             acceptNextAlert = true;
-           
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
             return this;
