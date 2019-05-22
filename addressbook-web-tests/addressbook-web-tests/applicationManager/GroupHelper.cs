@@ -21,6 +21,7 @@ namespace WebAddressbookTests
 
         public GroupHelper IfNeedToCreate(GroupData newGroup)
         {
+            manager.Navigator.GoToGroupPage();
             if (!(IsElementPresent(By.ClassName("group"))))
             {
                 Create(newGroup);
@@ -87,7 +88,7 @@ namespace WebAddressbookTests
 
         public GroupHelper SelectGroup(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[ " + index + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[ " + index + 1 + "]")).Click();
             return this;
         }
 
