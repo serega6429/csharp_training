@@ -8,7 +8,8 @@ namespace WebAddressbookTests
         [Test]
         public void ContactModificationTest()
         {
-            app.Contacts.Modify(1, new ContactData("Ivan", "Popov"));
+			app.Contacts.IfNeedToCreate();
+			app.Contacts.Modify(1, new ContactData("Ivan", "Popov"));
             
         }
 
