@@ -30,7 +30,6 @@ namespace WebAddressbookTests
 
         public ContactHelper Remove(int v)
         {
-            IfNeedToCreate();
             SelectContact(v);
             DeleteContact();
             return this;
@@ -38,7 +37,6 @@ namespace WebAddressbookTests
 
         public ContactHelper Modify(int v, ContactData contactData)
         {
-            IfNeedToCreate();
             EditContact(v);
             FillContactForm(contactData);
             UpdateContact();
