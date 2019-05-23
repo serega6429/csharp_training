@@ -22,8 +22,6 @@ namespace WebAddressbookTests
             AccountData invalidAccount = new AccountData("admin", "1111");
             app.Auth.Login(invalidAccount);
             Assert.IsFalse(app.Auth.isLoginIn(invalidAccount));
-
-
         }
 
     }

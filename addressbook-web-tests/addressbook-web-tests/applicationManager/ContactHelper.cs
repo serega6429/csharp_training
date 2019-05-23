@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
@@ -18,6 +19,23 @@ namespace WebAddressbookTests
             }
             return this;
         }
+
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigator.GoToHomePage();
+            ICollection<IWebElement> elements = driver.FindElements
+                (By.Name("entry"));
+
+            foreach (IWebElement element in elements)
+            {
+                contacts.Add(new ContactData(element.FindElement
+                    (By.XPath(".//td[3]")).Text, 
+                    element.FindElement(By.XPath(".//td[2]")).Text));
+            }
+            return contacts;
+        }
+
 
         public ContactHelper Create(ContactData contactData)
         {

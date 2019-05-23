@@ -14,7 +14,7 @@ namespace WebAddressbookTests
             if (!(driver.Url.EndsWith("addressbook/") &&
                 !IsElementPresent(By.Name("pass"))))
             {
-                driver.FindElement(By.LinkText("home page")).Click();
+                driver.FindElement(By.LinkText("home")).Click();
             }
         }
         public void GoToGroupPage()

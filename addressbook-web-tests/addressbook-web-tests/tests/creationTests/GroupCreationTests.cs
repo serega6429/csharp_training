@@ -34,7 +34,7 @@ namespace WebAddressbookTests
             oldGroups.Add(group);
             oldGroups.Sort();
             newGroups.Sort();
-            Assert.AreEqual(oldGroups.Count + 1, newGroups.Count);
+            Assert.AreEqual(oldGroups.Count, newGroups.Count);
 
         }
     }
