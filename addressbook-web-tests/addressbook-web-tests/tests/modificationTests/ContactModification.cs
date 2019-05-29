@@ -13,13 +13,21 @@ namespace WebAddressbookTests
 
             app.Contacts.IfNeedToCreate();
             List<ContactData> oldContacts = app.Contacts.GetContactList();
-            app.Contacts.Modify(1, newContact);
+            ContactData modificationContact = oldContacts[1];
+            app.Contacts.Modify(0, newContact);
             List<ContactData> newContacts = app.Contacts.GetContactList();
             oldContacts[0].Firstname = newContact.Firstname;
             oldContacts[0].Lastname = newContact.Lastname;
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
+            foreach (ContactData contact in newContacts)
+            {
+                if (contact.Equals(modificationContact))
+                {
+                    Assert.AreEqual(contact, modificationContact);
+                }
+            }
 
         }
 

@@ -19,14 +19,14 @@ namespace WebAddressbookTests
 
         private ApplicationManager()
         {
-            driver = new FirefoxDriver();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            baseURL = "http://localhost/addressbook";
+            Driver = new FirefoxDriver();
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            BASEURL = "http://localhost/addressbook";
             verificationErrors = new StringBuilder();
-            loginHelper = new LoginHelper(this);
-            navigationHelper = new NavigationHelper(this);
-            groupHelper = new GroupHelper(this);
-            contactHelper = new ContactHelper(this);
+            Auth = new LoginHelper(this);
+            Navigator = new NavigationHelper(this);
+            Groups = new GroupHelper(this);
+            Contacts = new ContactHelper(this);
         }
 
         ~ApplicationManager()
@@ -52,56 +52,11 @@ namespace WebAddressbookTests
             return app.Value;
         }
 
-        public LoginHelper Auth
-        {
-            get
-            {
-                return loginHelper;
-            }
-        }
-        public NavigationHelper Navigator
-        {
-            get
-            {
-                return navigationHelper;
-            }
-        }
-        public GroupHelper Groups
-        {
-            get
-            {
-                return groupHelper;
-            }
-        }
-        public ContactHelper Contacts
-        {
-            get
-            {
-                return contactHelper;
-            }
-        }
-        
-        public IWebDriver Driver
-        {
-            get
-            {
-                return driver;
-            }
-            set
-            {
-
-            }
-        }
-
-        public string BASEURL
-        {
-            get
-            {
-                return baseURL;
-            }
-            set
-            {
-            }
-        }
+        public LoginHelper Auth { get; }
+        public NavigationHelper Navigator { get; }
+        public GroupHelper Groups { get; }
+        public ContactHelper Contacts { get; }
+        public IWebDriver Driver { get; }
+        public string BASEURL { get; set; }
     }
 }
