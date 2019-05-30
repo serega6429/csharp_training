@@ -27,11 +27,11 @@ namespace WebAddressbookTests
 			{
 				Address = address,
 				AllPhones = allPhones,
-				allMails = allMails
+				AllMails = allMails
 			};
 		}
 
-		public ContactData GetInformationFromEditForm(int index)
+		public ContactData GetInformationFrom(int index)
 		{
 			manager.Navigator.GoToHomePage();
 			EditContact(index);
