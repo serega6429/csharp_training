@@ -12,7 +12,7 @@ namespace WebAddressbookTests
         {
         }
 
-		internal ContactData GetInformationTable(int index)
+		public ContactData GetInformationTable(int index)
 		{
 			manager.Navigator.GoToHomePage();
 			IList<IWebElement> cells = driver.FindElements(By.Name("entry"))[index].
