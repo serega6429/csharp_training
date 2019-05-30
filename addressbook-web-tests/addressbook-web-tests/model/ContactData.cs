@@ -31,7 +31,7 @@ namespace WebAddressbookTests
 				}
 				else
 				{
-					return (Email + Email2 + Email3).Trim();
+					return (CleanUpMail(Email) + CleanUpMail(Email2) + CleanUpMail(Email3)).Trim();
 				}
 			}
 			set
@@ -55,6 +55,15 @@ namespace WebAddressbookTests
 			{
 				allPhones = value;
 			}
+		}
+
+		private string CleanUpMail(string mail)
+		{
+			if (mail == null || mail == "")
+			{
+				return "";
+			}
+			return mail + "\r\n";
 		}
 
 		private string CleanUp(string phone)

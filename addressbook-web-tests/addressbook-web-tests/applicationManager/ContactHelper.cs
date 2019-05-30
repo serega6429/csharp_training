@@ -127,7 +127,7 @@ namespace WebAddressbookTests
 
         private ContactHelper EditContact(int v)
         {
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + v + 1 + "]")).Click();
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (v + 1) + "]")).Click();
             return this;
         }
 
