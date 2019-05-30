@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+using OpenQA.Selenium;
 
 
 namespace WebAddressbookTests
@@ -40,11 +41,14 @@ namespace WebAddressbookTests
 
         public bool isLoginIn(AccountData account)
         {
-            return isLoginIn()
-                    && driver.FindElement(By.Name("logout")).
-                FindElement(By.TagName("b")).Text == ("(" + account.Username + ")");
+			return isLoginIn()
+				&& GetHashCodeLoggetUserName() == account.Username;
         }
 
-
-    }
+		private string GetHashCodeLoggetUserName()
+		{
+			string acc = driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text;
+			return acc.Substring(1, acc.Length - 2);
+		}
+	}
 }
