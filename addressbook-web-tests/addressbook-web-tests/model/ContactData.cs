@@ -11,7 +11,6 @@ namespace WebAddressbookTests
     {
 		private string allPhones;
 		private string allMails;
-		private string fullContactInfo;
 
 		public string Firstname { get; set; }
         public string Lastname { get; set; }
@@ -23,42 +22,7 @@ namespace WebAddressbookTests
 		public string Email2 { get; set; }
 		public string Email3 { get; set; }
 		public string WorkPhone { get; set; }
-		public string MidlName { get; internal set; }
-		public string NickName { get; internal set; }
-		public string Notes { get; internal set; }
-		public string Phome2 { get; internal set; }
-		public string Address2 { get; internal set; }
-		public string AYear { get; internal set; }
-		public string AMounth { get; internal set; }
-		public string ADay { get; internal set; }
-		public string BYear { get; internal set; }
-		public string BMounth { get; internal set; }
-		public string BDay { get; internal set; }
-		public string HomePage { get; internal set; }
-		public string Fax { get; internal set; }
-		public string Title { get; internal set; }
-		public string Company { get; internal set; }
-
-		public string FullContactInfo
-		{
-			get
-			{
-				if (fullContactInfo != null)
-				{
-					return fullContactInfo;
-				}
-				else
-				{
-					return 
-				}
-			}
-			set
-			{
-				fullContactInfo = value;
-			}
-		}
-		public string AllMails
-		{
+		public string AllMails {
 			get
 			{
 				if(allMails != null)
@@ -67,7 +31,7 @@ namespace WebAddressbookTests
 				}
 				else
 				{
-					return (Email + Email2 + Email3).Trim();
+					return (CleanUpMail(Email) + CleanUpMail(Email2) + CleanUpMail(Email3)).Trim();
 				}
 			}
 			set
@@ -93,6 +57,14 @@ namespace WebAddressbookTests
 			}
 		}
 
+		private string CleanUpMail(string mail)
+		{
+			if (mail == null || mail == "")
+			{
+				return "";
+			}
+			return mail + "\r\n";
+		}
 
 		private string CleanUp(string phone)
 		{
