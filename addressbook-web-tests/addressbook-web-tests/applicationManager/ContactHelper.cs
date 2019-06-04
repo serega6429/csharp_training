@@ -36,20 +36,14 @@ namespace WebAddressbookTests
 			manager.Navigator.GoToHomePage();
 			DetailsContact(index);
 			string allInfo = driver.FindElement(By.Id("content")).Text;
-			string[] fullInfo = allInfo.Split('\r','\n');
+
 
 
 			return new ContactData("", "")
 			{
-				/*
-				Address = address,
-				HomePhone = homePhone,
-				MobilePhone = mobilePhone,
-				WorkPhone = workPhone,
-				Email = email,
-				Email2 = email2,
-				Email3 = email3
-				*/
+
+				DetailsContactInfo = allInfo
+				
 			};
 
 
@@ -57,7 +51,7 @@ namespace WebAddressbookTests
 
 		private ContactHelper DetailsContact(int index)
 		{
-			driver.FindElement(By.XPath("(//img[@alt='Details'])[" + index + "]")).Click();
+			driver.FindElement(By.XPath("(//img[@alt='Details'])[" + (index + 1) + "]")).Click();
 			return this;
 		}
 
@@ -66,7 +60,7 @@ namespace WebAddressbookTests
 			manager.Navigator.GoToHomePage();
 			EditContact(index);
 			string firstName = driver.FindElement(By.Name("firstname")).GetAttribute("value");
-			string midlName = driver.FindElement(By.Name("midlname")).GetAttribute("value");
+			string midlName = driver.FindElement(By.Name("middlename")).GetAttribute("value");
 			string lastName = driver.FindElement(By.Name("lastname")).GetAttribute("value");
 			string nickName = driver.FindElement(By.Name("nickname")).GetAttribute("value");
 
@@ -86,15 +80,15 @@ namespace WebAddressbookTests
 
 			string homePage = driver.FindElement(By.Name("homepage")).GetAttribute("value");
 			string bDay = driver.FindElement(By.Name("bday")).GetAttribute("value");
-			string bMounth = driver.FindElement(By.Name("bmounth")).GetAttribute("value");
+			string bMounth = driver.FindElement(By.Name("bmonth")).GetAttribute("value");
 			string bYear = driver.FindElement(By.Name("byear")).GetAttribute("value");
 
 			string aDay = driver.FindElement(By.Name("aday")).GetAttribute("value");
-			string aMounth = driver.FindElement(By.Name("amounth")).GetAttribute("value");
+			string aMounth = driver.FindElement(By.Name("amonth")).GetAttribute("value");
 			string aYear = driver.FindElement(By.Name("ayear")).GetAttribute("value");
 
 			string address2 = driver.FindElement(By.Name("address2")).GetAttribute("value");
-			string pHome2 = driver.FindElement(By.Name("phome")).GetAttribute("value");
+			string pHome2 = driver.FindElement(By.Name("phone2")).GetAttribute("value");
 			string notes = driver.FindElement(By.Name("notes")).GetAttribute("value");
 
 

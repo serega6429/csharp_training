@@ -12,6 +12,7 @@ namespace WebAddressbookTests
 		private string allPhones;
 		private string allMails;
 		private string fullContactInfo;
+		private string detailsContactInfo;
 
 		public string Firstname { get; set; }
         public string Lastname { get; set; }
@@ -23,21 +24,40 @@ namespace WebAddressbookTests
 		public string Email2 { get; set; }
 		public string Email3 { get; set; }
 		public string WorkPhone { get; set; }
-		public string MidlName { get; internal set; }
-		public string NickName { get; internal set; }
-		public string Notes { get; internal set; }
-		public string Phome2 { get; internal set; }
-		public string Address2 { get; internal set; }
-		public string AYear { get; internal set; }
-		public string AMounth { get; internal set; }
-		public string ADay { get; internal set; }
-		public string BYear { get; internal set; }
-		public string BMounth { get; internal set; }
-		public string BDay { get; internal set; }
-		public string HomePage { get; internal set; }
-		public string Fax { get; internal set; }
-		public string Title { get; internal set; }
-		public string Company { get; internal set; }
+		public string MidlName { get; set; }
+		public string NickName { get; set; }
+		public string Notes { get; set; }
+		public string Phome2 { get; set; }
+		public string Address2 { get; set; }
+		public string AYear { get; set; }
+		public string AMounth { get; set; }
+		public string ADay { get; set; }
+		public string BYear { get; set; }
+		public string BMounth { get; set; }
+		public string BDay { get; set; }
+		public string HomePage { get; set; }
+		public string Fax { get; set; }
+		public string Title { get; set; }
+		public string Company { get; set; }
+		public string DetailsContactInfo
+		{
+			get
+			{
+				
+				return detailsContactInfo.Replace("\r", "").
+					Replace("\n", "").Replace("M:", "").Replace("H:", "").
+					Replace("W:", "").Replace("F:", "").Replace("P:", "").
+					Replace("Homepage:","").Replace("Birthday", "").
+					Replace("Anniversary", "")
+					.Replace(" ", "");
+
+				Regex.Replace(detailsContactInfo, "Birthday(\\d.\\w+\d\d\d\d)\(\d+\)", "");
+			}
+			set
+			{
+				detailsContactInfo = value;
+			}
+		}
 
 		public string FullContactInfo
 		{
@@ -49,7 +69,7 @@ namespace WebAddressbookTests
 				}
 				else
 				{
-					return 
+					return GetFullInfo();
 				}
 			}
 			set
@@ -57,6 +77,26 @@ namespace WebAddressbookTests
 				fullContactInfo = value;
 			}
 		}
+
+		private string GetFullInfo()
+		{
+			string fullInfo = Firstname + MidlName + Lastname + NickName +
+			Title + Company + Address + HomePhone + MobilePhone + WorkPhone + 
+			Fax + Email + Email2 + Email3 + HomePage + BDay + BMounth + BYear +
+			ADay + AMounth + AYear + Address2 + Phome2 + Notes;
+			
+			return fullInfo.Replace(" ", "");
+		}
+
+		private string CleanUp(string text)
+		{
+			if (text == null)
+			{
+				return null;
+			}
+			return text + " ";
+		}
+
 		public string AllMails
 		{
 			get
@@ -67,7 +107,8 @@ namespace WebAddressbookTests
 				}
 				else
 				{
-					return (CleanUpMail(Email) + CleanUpMail(Email2) + CleanUpMail(Email3)).Trim();
+					return (CleanUpMail(Email) + CleanUpMail(Email2)
+						+ CleanUpMail(Email3)).Trim();
 				}
 			}
 			set
@@ -84,7 +125,8 @@ namespace WebAddressbookTests
 				}
 				else
 				{
-					return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone)).Trim();
+					return (CleanUp(HomePhone) + CleanUp(MobilePhone)
+						+ CleanUp(WorkPhone)).Trim();
 				}
 			}
 			set
@@ -93,7 +135,17 @@ namespace WebAddressbookTests
 			}
 		}
 
-		private string CleanUp(string phone)
+
+		private string CleanUpMail(string mail)
+		{
+			if (mail == null || mail == "")
+			{
+				return "";
+			}
+			return mail + "\r\n";
+		}
+
+		private string CleanUpPhone(string phone)
 		{
 			if(phone == null || phone == "")
 			{
