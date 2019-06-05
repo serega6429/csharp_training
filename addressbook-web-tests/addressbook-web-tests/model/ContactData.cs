@@ -43,15 +43,12 @@ namespace WebAddressbookTests
 		{
 			get
 			{
-				
 				return detailsContactInfo.Replace("\r", "").
 					Replace("\n", "").Replace("M:", "").Replace("H:", "").
 					Replace("W:", "").Replace("F:", "").Replace("P:", "").
 					Replace("Homepage:","").Replace("Birthday", "").
 					Replace("Anniversary", "")
 					.Replace(" ", "");
-
-				Regex.Replace(detailsContactInfo, "Birthday(\\d.\\w+\d\d\d\d)\(\d+\)", "");
 			}
 			set
 			{
@@ -82,19 +79,24 @@ namespace WebAddressbookTests
 		{
 			string fullInfo = Firstname + MidlName + Lastname + NickName +
 			Title + Company + Address + HomePhone + MobilePhone + WorkPhone + 
-			Fax + Email + Email2 + Email3 + HomePage + BDay + BMounth + BYear +
-			ADay + AMounth + AYear + Address2 + Phome2 + Notes;
+			Fax + Email + Email2 + Email3 + HomePage + (BDay != "0" ? BDay + "." : "") + BMounth + 
+			AddAge(BYear) + (ADay != "0" ? ADay + "." : "") + AMounth + AddAge(AYear) + Address2 + Phome2 + Notes;
 			
-			return fullInfo.Replace(" ", "");
+			return Regex.Replace(fullInfo, "[ -]", "");
 		}
 
-		private string CleanUp(string text)
+
+		private string AddAge(string text)
 		{
-			if (text == null)
+			if (!(text == ""))
 			{
-				return null;
+				string curentYear = DateTime.Now.Year.ToString();
+				return text + "(" + (Int32.Parse(curentYear) - Int32.Parse(text)) + ")";
 			}
-			return text + " ";
+			else
+			{
+				return text;
+			}
 		}
 
 		public string AllMails
@@ -125,8 +127,8 @@ namespace WebAddressbookTests
 				}
 				else
 				{
-					return (CleanUp(HomePhone) + CleanUp(MobilePhone)
-						+ CleanUp(WorkPhone)).Trim();
+					return (CleanUpPhone(HomePhone) + CleanUpPhone(MobilePhone)
+						+ CleanUpPhone(WorkPhone)).Trim();
 				}
 			}
 			set
