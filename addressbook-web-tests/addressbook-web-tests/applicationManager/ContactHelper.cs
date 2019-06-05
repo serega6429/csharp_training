@@ -37,11 +37,8 @@ namespace WebAddressbookTests
 			DetailsContact(index);
 			string allInfo = driver.FindElement(By.Id("content")).Text;
 
-
-
 			return new ContactData("", "")
 			{
-
 				DetailsContactInfo = allInfo
 				
 			};
@@ -90,6 +87,7 @@ namespace WebAddressbookTests
 			string address2 = driver.FindElement(By.Name("address2")).GetAttribute("value");
 			string pHome2 = driver.FindElement(By.Name("phone2")).GetAttribute("value");
 			string notes = driver.FindElement(By.Name("notes")).GetAttribute("value");
+			
 
 
 			return new ContactData(firstName, lastName)
