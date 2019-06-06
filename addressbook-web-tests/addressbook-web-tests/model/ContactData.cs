@@ -94,6 +94,7 @@ namespace WebAddressbookTests
 
 			for (int i = list.Count - 1; i >= 0; i--)
 			{
+
 				if (list[i] != "") 
 				{
 					if ((list[i] != "F: ") || (list[i] != "P: ") || (list[i] != "W: ") || (list[i] != "M: "))
