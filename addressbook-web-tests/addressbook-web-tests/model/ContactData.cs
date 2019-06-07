@@ -64,7 +64,7 @@ namespace WebAddressbookTests
 		private string GetFullInfo()
 		{
 			string fullInfo = "";
-			ArrayList list = new ArrayList()
+			List<string> list = new List<string>()
 			{
 				(Firstname + " " + MidlName + " " + Lastname).Replace("  ", " ").Trim(),
 				NickName,
@@ -82,8 +82,8 @@ namespace WebAddressbookTests
 				Email3,
 				"Homepage:\r\n" + HomePage,
 				"\r\n",
-				"Birthday " + (BDay != "0" ? BDay + "." : "") + BMounth +	AddAge(BYear),
-				"Anniversary " + (ADay != "0" ? ADay + "." : "") + AMounth + AddAge(AYear),
+				"Birthday " + (BDay != "0" ? BDay + ". " : "") + BMounth + AddAge(BYear),
+				"Anniversary " + (ADay != "0" ? ADay + ". " : "") + AMounth + AddAge(AYear),
 				 "\r\n",
 				Address2,
 				"\r\n",
@@ -97,23 +97,29 @@ namespace WebAddressbookTests
 
 				if (list[i] != "") 
 				{
-					if ((list[i] != "F: ") || (list[i] != "P: ") || (list[i] != "W: ") || (list[i] != "M: "))
+					if ((list[i] != "F: ") && (list[i] != "P: ") && (list[i] != "W: ") && (list[i] != "M: ") && (list[i] != "H: "))
 					{
-						if ((list[i] != "Birthday -") || (list[i] != "Anniversary -") || (list[i] != "Homepage:\r\n"))  
+						if ((list[i] != "Birthday -") && (list[i] != "Anniversary -") && (list[i] != "Homepage:\r\n"))  
 						{
 							if (list[i] != "\r\n")
-							{
-								fullInfo = list[i] + "\r\n" + fullInfo;
+							{   
+								fullInfo = list[i] + (fullInfo.Length == 0 ? "" : "\r\n") + fullInfo;
 							} else
 							{
-								fullInfo = list[i] + fullInfo;
+								if (fullInfo.Length != 0)
+								{
+									fullInfo = list[i] + fullInfo;
+								}
 							}
 						}
 					}
 				}
 				
 			}
-			
+			while (fullInfo.Contains("\r\n\r\n\r\n"))
+			{
+				fullInfo = fullInfo.Replace("\r\n\r\n\r\n", "\r\n\r\n");
+			}
 			return fullInfo;
 		}
 
@@ -122,7 +128,7 @@ namespace WebAddressbookTests
 			if (!(text == ""))
 			{
 				string curentYear = DateTime.Now.Year.ToString();
-				return text + "(" + (Int32.Parse(curentYear) - Int32.Parse(text)) + ")";
+				return " " + text + " (" + (Int32.Parse(curentYear) - Int32.Parse(text)) + ")";
 			}
 			else
 			{

@@ -27,8 +27,6 @@ namespace WebAddressbookTests
 		{
 			ContactData fromForm = app.Contacts.GetInformationFrom(2);
 			ContactData fromDetails = app.Contacts.GetInformationDetails(2);
-			System.Console.Write(fromForm.FullContactInfo + "\r\n");
-			System.Console.Write(fromDetails.DetailsContactInfo);
 			Assert.AreEqual(fromDetails.DetailsContactInfo, fromForm.FullContactInfo);
 
 
