@@ -6,10 +6,19 @@ namespace WebAddressbookTests
     [TestFixture]
     class ContactCreationTests : AuthTestBase
     {
-        [Test]
-        public void ContactCreationTest()  
+        public static IEnumerable<ContactData> RandomContactDataProvider()
         {
-            ContactData contact = new ContactData("Sergey", "Yusupov");
+            List<ContactData> groups = new List<ContactData>();
+            for (int i = 0; i < 5; i++)
+            {
+                groups.Add(new ContactData(GenerateRandomStrring(30),
+                    GenerateRandomStrring(30)));
+            }
+            return groups;
+        }
+        [Test, TestCaseSource("RandomContactDataProvider")]
+        public void ContactCreationTest(ContactData contact)  
+        {
             List<ContactData> oldContacts = app.Contacts.GetContactList();
             app.Contacts.Create(contact);
             Assert.AreEqual(oldContacts.Count + 1, app.Contacts.GetContactListCount());

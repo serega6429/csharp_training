@@ -28,8 +28,6 @@ namespace WebAddressbookTests
 			ContactData fromForm = app.Contacts.GetInformationFrom(2);
 			ContactData fromDetails = app.Contacts.GetInformationDetails(2);
 			Assert.AreEqual(fromDetails.DetailsContactInfo, fromForm.FullContactInfo);
-
-
 		}
 	}
 }
