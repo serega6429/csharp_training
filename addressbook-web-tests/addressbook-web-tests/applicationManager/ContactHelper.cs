@@ -157,7 +157,7 @@ namespace WebAddressbookTests
         public ContactHelper Create(ContactData contactData)
         {
             GoToNewContact();
-            FillContactForm(new ContactData("Sergey", "Yusupov"));
+            FillContactForm(contactData);
             SubmitContactCreation();
             manager.Navigator.GoToHomePage();
             return this;
