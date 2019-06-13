@@ -125,7 +125,7 @@ namespace WebAddressbookTests
 
 		private string AddAge(string text)
 		{
-			if (!(text == ""))
+			if ((text != "") && (text != null))
 			{
 				string curentYear = DateTime.Now.Year.ToString();
 				return " " + text + " (" + (Int32.Parse(curentYear) - Int32.Parse(text)) + ")";
@@ -198,6 +198,8 @@ namespace WebAddressbookTests
             Firstname = firstname;
             Lastname = lastname;
         }
+
+        public ContactData() {}
 
         public int CompareTo(ContactData other)
         {
