@@ -170,6 +170,13 @@ namespace WebAddressbookTests
             ContactCache = null;
             return this;
         }
+        public ContactHelper Remove(ContactData contactData)
+        {
+            SelectContact(contactData.Id);
+            DeleteContact();
+            ContactCache = null;
+            return this;
+        }
 
         public ContactHelper Modify(int v, ContactData contactData)
         {
@@ -215,6 +222,12 @@ namespace WebAddressbookTests
         public ContactHelper SelectContact(int index)
         {
             driver.FindElements(By.Name("entry"))[index].FindElement(By.Name("selected[]")).Click();
+            return this;
+        }
+        public ContactHelper SelectContact(string index)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' " +
+                 "and @value='" + index + "'])")).Click();
             return this;
         }
         public ContactHelper DeleteContact()
