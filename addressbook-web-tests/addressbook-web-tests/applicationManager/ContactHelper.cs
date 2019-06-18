@@ -186,6 +186,14 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public ContactHelper Modify(ContactData modify, ContactData contactData)
+        {
+            EditContact(modify.Id);
+            FillContactForm(contactData);
+            UpdateContact();
+            return this;
+        }
+
         private ContactHelper UpdateContact()
         {
             driver.FindElement(By.Name("update")).Click();
@@ -195,6 +203,15 @@ namespace WebAddressbookTests
         private ContactHelper EditContact(int v)
         {
             driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (v + 1) + "]")).Click();
+            return this;
+        }
+
+        private ContactHelper EditContact(string v)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' " +
+                 "and @value='" + v + "'])")).
+                FindElement(By.XPath("./..")).FindElement(By.XPath("./..")).
+                FindElement(By.XPath("(//img[@alt='Edit'])")).Click();
             return this;
         }
 
