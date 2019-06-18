@@ -4,12 +4,12 @@ using System.Collections.Generic;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    class ContactModification : AuthTestBase
+    class ContactModification : ContactTestBase
     {
         [Test]
         public void ContactModificationTest()
         {
-            ContactData newContact = new ContactData("Ivan", "Popov");
+            ContactData newContact = new ContactData("Petr", "Petrov");
 
             app.Contacts.IfNeedToCreate();
             List<ContactData> oldContacts = ContactData.GetAll();

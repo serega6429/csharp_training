@@ -6,7 +6,7 @@ using System.IO;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    class ContactCreationTests : AuthTestBase
+    class ContactCreationTests : ContactTestBase
     {
         [Test, TestCaseSource("ContactDataFromJsonFile")]
         public void ContactCreationTest(ContactData contact)  

@@ -10,7 +10,7 @@ using System;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class GroupCreationTests : AuthTestBase
+    public class GroupCreationTests : GroupTestBase
     {
         [Test, TestCaseSource("GroupDataFromJsonFile")]
          public void GroupCreationTest(GroupData group)
