@@ -34,7 +34,7 @@ namespace WebAddressbookTests
             try
             {
                 Auth.Logout();
-                driver.Quit();
+                Driver.Quit();
             }
             catch (Exception)
             {

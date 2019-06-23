@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -31,7 +32,39 @@ namespace WebAddressbookTests
 			};
 		}
 
-		public ContactData GetInformationDetails(int index)
+        public void AddContactToGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            ClearGroupFilter();
+            SelectContact(contact.Id);
+            SelectGroup(group.Name);
+            CommitAddingContactToGroup();
+            WaitMsgBox();
+
+        }
+
+        private void WaitMsgBox()
+        {
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10)).
+                            Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+        private void CommitAddingContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
+        }
+
+        private void SelectGroup(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+        }
+
+        private void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+        }
+
+        public ContactData GetInformationDetails(int index)
 		{
 			manager.Navigator.GoToHomePage();
 			DetailsContact(index);
@@ -174,6 +207,7 @@ namespace WebAddressbookTests
         {
             SelectContact(contactData.Id);
             DeleteContact();
+            WaitMsgBox();
             ContactCache = null;
             return this;
         }
@@ -191,6 +225,7 @@ namespace WebAddressbookTests
             EditContact(modify.Id);
             FillContactForm(contactData);
             UpdateContact();
+            WaitMsgBox();
             return this;
         }
 
@@ -210,7 +245,6 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]' " +
                  "and @value='" + v + "'])")).
-                FindElement(By.XPath("./..")).FindElement(By.XPath("./..")).
                 FindElement(By.XPath("(//img[@alt='Edit'])")).Click();
             return this;
         }
