@@ -32,6 +32,20 @@ namespace WebAddressbookTests
 			};
 		}
 
+        public void RemoveContactToGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            EditGroupFromFilter(group.Name);
+            SelectContact(contact.Id);
+            DeleteContact();
+            WaitMsgBox();
+        }
+
+        private void EditGroupFromFilter(string nameGroup)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(nameGroup);
+        }
+
         public void AddContactToGroup(ContactData contact, GroupData group)
         {
             manager.Navigator.GoToHomePage();
@@ -243,9 +257,7 @@ namespace WebAddressbookTests
 
         private ContactHelper EditContact(string v)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]' " +
-                 "and @value='" + v + "'])")).
-                FindElement(By.XPath("(//img[@alt='Edit'])")).Click();
+            driver.FindElement(By.XPath("//input[@name='selected[]' and @value='" + v + "']/../..//img[@alt='Edit']")).Click();
             return this;
         }
 
