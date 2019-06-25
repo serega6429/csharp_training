@@ -32,6 +32,20 @@ namespace WebAddressbookTests
 			};
 		}
 
+        public bool HaveContactsWithoutGroup()
+        {
+            manager.Navigator.GoToHomePage();
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[none]");
+            if (!(IsElementPresent(By.ClassName("center"))))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public void RemoveContactToGroup(ContactData contact, GroupData group)
         {
             manager.Navigator.GoToHomePage();
@@ -57,7 +71,7 @@ namespace WebAddressbookTests
 
         }
 
-        private void WaitMsgBox()
+        public void WaitMsgBox()
         {
             new WebDriverWait(driver, TimeSpan.FromSeconds(10)).
                             Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
@@ -168,6 +182,7 @@ namespace WebAddressbookTests
 
 		public ContactHelper IfNeedToCreate()
         {
+            manager.Navigator.GoToHomePage();
             if (!(IsElementPresent(By.ClassName("center"))))
             {
                 Create(new ContactData("Sergey", "Yusupov"));

@@ -20,6 +20,11 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public void IfNeedToCreateGroupWithContact(GroupData groupData)
+        {
+            manager.Navigator.GoToGroupPage();
+        }
+
         public GroupHelper IfNeedToCreate(GroupData newGroup)
         {
             manager.Navigator.GoToGroupPage();
