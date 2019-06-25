@@ -21,7 +21,7 @@ namespace WebAddressbookTests
         public string Lastname { get; set; }
         [Column(Name = "id"), PrimaryKey]
         public string Id { get; set; }
-		public string Address { get; set; }
+        public string Address { get; set; }
 		public string HomePhone { get; set; }
 		public string MobilePhone { get; set; }
 		public string Email { get; set; }

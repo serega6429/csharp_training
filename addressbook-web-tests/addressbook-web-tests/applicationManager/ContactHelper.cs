@@ -32,18 +32,31 @@ namespace WebAddressbookTests
 			};
 		}
 
-        public bool HaveContactsWithoutGroup()
+        public ContactData GetContactWithOutGroup()
         {
             manager.Navigator.GoToHomePage();
             new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[none]");
             if (!(IsElementPresent(By.ClassName("center"))))
             {
-                return false;
+                Create(new ContactData()
+                {
+                    Firstname = DateTime.Now.ToString(),
+                    Lastname = DateTime.Now.ToString()
+                });
             }
-            else
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[none]");
+
+            IList < IWebElement > cells = driver.FindElements(By.Name("entry"))[0].
+                FindElements(By.TagName("td"));
+            string firstName = cells[2].Text;
+            string lastName = cells[1].Text; ;
+            string Id = cells[0].FindElement(By.Name("selected[]")).GetAttribute("value").ToString();
+
+            return new ContactData(firstName, lastName)
             {
-                return true;
-            }
+                Id = Id
+            };
+
         }
 
         public void RemoveContactToGroup(ContactData contact, GroupData group)

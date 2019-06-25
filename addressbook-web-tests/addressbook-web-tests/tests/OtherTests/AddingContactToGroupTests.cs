@@ -18,16 +18,7 @@ namespace WebAddressbookTests
             List<ContactData> allContacts = ContactData.GetAll();
             GroupData group = GroupData.GetAll()[0];
             List<ContactData> oldList = group.GetContacts();
-            if (oldList.Count == allContacts.Count)
-            {
-                app.Contacts.Create(new ContactData()
-                {
-                    Firstname = "aa",
-                    Lastname = "bb"
-                });
-                //app.Contacts.WaitMsgBox();
-            }
-            ContactData contact = ContactData.GetAll().Except(oldList).First();
+            ContactData contact = app.Contacts.GetContactWithOutGroup();
             app.Contacts.AddContactToGroup(contact, group);
 
             List<ContactData> newList = group.GetContacts();
